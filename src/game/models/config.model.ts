@@ -15,7 +15,7 @@ export interface GameObjectConfig {
   x?: number;
   y?: number;
   direction?: Direction;
-  src?: string;
+  src: string;
 }
 
 export interface PersonConfig extends GameObjectConfig {

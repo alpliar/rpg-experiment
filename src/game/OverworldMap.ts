@@ -36,6 +36,7 @@ export const overworldMaps: Record<string, OverworldMapConfig> = {
         x: utils.withGrid(5),
         y: utils.withGrid(6),
         isPlayerControlled: true,
+        src: "/images/characters/people/hero.png",
       }),
       npc1: new Person({
         x: utils.withGrid(3),
@@ -52,6 +53,7 @@ export const overworldMaps: Record<string, OverworldMapConfig> = {
         x: utils.withGrid(5),
         y: utils.withGrid(6),
         isPlayerControlled: true,
+        src: "/images/characters/people/hero.png",
       }),
       npc1: new Person({
         x: utils.withGrid(9),
