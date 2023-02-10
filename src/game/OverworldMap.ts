@@ -1,4 +1,4 @@
-import { GameObject } from "./GameObject";
+import type { GameObject } from "./GameObject";
 import type { IConfig } from "./models/config.model";
 import { Person } from "./Person";
 import { utils } from "./Utils";
