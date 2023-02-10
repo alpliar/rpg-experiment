@@ -1,5 +1,5 @@
 import type { GameObject } from "./GameObject";
-import type { IConfig } from "./models/config.model";
+import type { OverworldMapConfig } from "./models/config.model";
 import { Person } from "./Person";
 import { utils } from "./Utils";
 
@@ -8,7 +8,7 @@ export class OverworldMap {
   lowerImage: HTMLImageElement;
   upperImage: HTMLImageElement;
 
-  constructor(config: IConfig) {
+  constructor(config: OverworldMapConfig) {
     this.gameObjects = config.gameObjects;
 
     this.lowerImage = new Image();
@@ -27,7 +27,7 @@ export class OverworldMap {
   }
 }
 
-export const overworldMaps: Record<string, IConfig> = {
+export const overworldMaps: Record<string, OverworldMapConfig> = {
   DemoRoom: {
     lowerSrc: "/images/maps/DemoLower.png",
     upperSrc: "/images/maps/DemoUpper.png",

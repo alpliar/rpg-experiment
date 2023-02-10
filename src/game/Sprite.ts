@@ -1,7 +1,6 @@
 import type { GameObject } from "./GameObject";
 import type { Animations } from "./models/animation.model";
-import type { IConfig } from "./models/config.model";
-import { utils } from "./Utils";
+import type { SpriteConfig } from "./models/config.model";
 
 export class Sprite {
   image: HTMLImageElement;
@@ -14,7 +13,7 @@ export class Sprite {
   animations: Animations;
   currentAnimation: keyof Animations;
 
-  constructor(config: IConfig) {
+  constructor(config: SpriteConfig) {
     this.image = new Image();
     this.image.src = config.src;
     this.image.onload = () => {

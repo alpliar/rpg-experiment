@@ -1,4 +1,4 @@
-import type { IConfig } from "./models/config.model";
+import type { GameObjectConfig } from "./models/config.model";
 import type { Direction } from "./models/direction.model";
 import { Sprite } from "./Sprite";
 
@@ -9,7 +9,7 @@ export class GameObject {
   gameObject: unknown;
   direction: Direction;
 
-  constructor(config: IConfig) {
+  constructor(config: GameObjectConfig) {
     this.x = config.x || 0;
     this.y = config.y || 0;
     this.direction = config.direction || "down";

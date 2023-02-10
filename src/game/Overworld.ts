@@ -1,5 +1,5 @@
 import { DirectionInput } from "./DirectionInput";
-import type { IConfig } from "./models/config.model";
+import type { OverworldConfig } from "./models/config.model";
 import { OverworldMap, overworldMaps } from "./OverworldMap";
 
 export class Overworld {
@@ -9,7 +9,7 @@ export class Overworld {
   private directionInput: DirectionInput;
   map: OverworldMap;
 
-  constructor(config: IConfig) {
+  constructor(config: OverworldConfig) {
     this.element = config.element;
     this.canvas = this.element?.querySelector(".game-canvas");
     this.ctx = this.canvas?.getContext("2d");

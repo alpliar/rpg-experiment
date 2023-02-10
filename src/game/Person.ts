@@ -1,5 +1,5 @@
 import { GameObject } from "./GameObject";
-import type { IConfig } from "./models/config.model";
+import type { PersonConfig } from "./models/config.model";
 import type { Direction } from "./models/direction.model";
 
 export class Person extends GameObject {
@@ -7,7 +7,7 @@ export class Person extends GameObject {
   directionUpdate: Record<Direction, [string, number]>;
   movingProgressRemaining: number;
 
-  constructor(config: IConfig) {
+  constructor(config: PersonConfig) {
     super(config);
     this.isPlayerControlled = config.isPlayerControlled || false;
     this.movingProgressRemaining = 0;
