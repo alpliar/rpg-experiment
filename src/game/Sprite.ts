@@ -1,6 +1,7 @@
 import type { GameObject } from "./GameObject";
 import type { Animations } from "./models/animation.model";
 import type { SpriteConfig } from "./models/config.model";
+import { utils } from "./Utils";
 
 export class Sprite {
   image: HTMLImageElement;
@@ -102,9 +103,9 @@ export class Sprite {
     }
   }
 
-  public draw(ctx: CanvasRenderingContext2D) {
-    const x = this.gameObject.x - 8;
-    const y = this.gameObject.y - 18;
+  public draw(ctx: CanvasRenderingContext2D, cameraPerson: GameObject) {
+    const x = this.gameObject.x - 8 + utils.withGrid(10.5) - cameraPerson.x;
+    const y = this.gameObject.y - 18 + utils.withGrid(6) - cameraPerson.y;
 
     this.isShadowLoaded &&
       this.useShadow &&

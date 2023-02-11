@@ -1,6 +1,8 @@
 import { DirectionInput } from "./DirectionInput";
+import { GameObject } from "./GameObject";
 import type { OverworldConfig } from "./models/config.model";
 import { OverworldMap, overworldMaps } from "./OverworldMap";
+import { Person } from "./Person";
 
 export class Overworld {
   private element: HTMLElement;
@@ -19,19 +21,26 @@ export class Overworld {
 
   startGameLoop() {
     const step = () => {
+      // Clear canvas before drawing
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-      this.map.drawLowerImage(this.ctx);
+      // Establish camera
+      const cameraPerson: GameObject = this.map.gameObjects.hero;
 
+      // Draw lower layer of map
+      this.map.drawLowerImage(this.ctx, cameraPerson);
+
+      // Draw game objects
       Object.values(this.map.gameObjects).forEach((object) => {
         object.update({
           arrow: this.directionInput.direction,
         });
 
-        object.sprite.draw(this.ctx);
+        object.sprite.draw(this.ctx, cameraPerson);
       });
 
-      this.map.drawUpperImage(this.ctx);
+      // Draw upper layer of map
+      this.map.drawUpperImage(this.ctx, cameraPerson);
 
       requestAnimationFrame(() => {
         step();
