@@ -1,3 +1,4 @@
+import { canvas } from "./Constants";
 import type { GameObject } from "./GameObject";
 import type { OverworldMapConfig } from "./models/config.model";
 import { Person } from "./Person";
@@ -21,8 +22,8 @@ export class OverworldMap {
   drawLowerImage(ctx: CanvasRenderingContext2D, cameraPerson: GameObject) {
     ctx.drawImage(
       this.lowerImage,
-      utils.withGrid(10.5) - cameraPerson.x,
-      utils.withGrid(6) - cameraPerson.y
+      utils.withGrid(canvas.widthCells / 2 - 1) - cameraPerson.x,
+      utils.withGrid(canvas.heightCells / 2 - 1) - cameraPerson.y
     );
   }
 
