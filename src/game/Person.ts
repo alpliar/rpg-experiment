@@ -28,8 +28,8 @@ export class Person extends GameObject {
           type: "walk",
           direction: state.arrow,
         });
-        this.updateSprite(state);
       }
+      this.updateSprite(state);
     }
   }
 
