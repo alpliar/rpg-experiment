@@ -27,15 +27,18 @@ export class Overworld {
       // Establish camera
       const cameraPerson: GameObject = this.map.gameObjects.hero;
 
+      // Update objects position before drawing
+      Object.values(this.map.gameObjects).forEach((object) => {
+        object.update({
+          arrow: this.directionInput.direction,
+        });
+      });
+
       // Draw lower layer of map
       this.map.drawLowerImage(this.ctx, cameraPerson);
 
       // Draw game objects
       Object.values(this.map.gameObjects).forEach((object) => {
-        object.update({
-          arrow: this.directionInput.direction,
-        });
-
         object.sprite.draw(this.ctx, cameraPerson);
       });
 
