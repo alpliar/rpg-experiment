@@ -9,6 +9,7 @@ export interface OverworldMapConfig {
   gameObjects: Record<string, GameObject>;
   lowerSrc: string;
   upperSrc: string;
+  walls: Record<string, boolean>;
 }
 
 export interface GameObjectConfig {

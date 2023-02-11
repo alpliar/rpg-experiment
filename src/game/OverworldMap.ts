@@ -1,6 +1,7 @@
 import { canvas } from "./Constants";
 import type { GameObject } from "./GameObject";
 import type { OverworldMapConfig } from "./models/config.model";
+import { Direction } from "./models/direction.model";
 import { Person } from "./Person";
 import { utils } from "./Utils";
 
@@ -8,9 +9,11 @@ export class OverworldMap {
   gameObjects: Record<string, GameObject>;
   lowerImage: HTMLImageElement;
   upperImage: HTMLImageElement;
+  walls: Record<string, boolean>;
 
   constructor(config: OverworldMapConfig) {
     this.gameObjects = config.gameObjects;
+    this.walls = config.walls || {};
 
     this.lowerImage = new Image();
     this.lowerImage.src = config.lowerSrc;
@@ -34,6 +37,11 @@ export class OverworldMap {
       utils.withGrid(6) - cameraPerson.y
     );
   }
+
+  isSpaceTaken(currentX: number, currentY: number, direction: Direction) {
+    const { x, y } = utils.nextPosition(currentX, currentY, direction);
+    return this.walls[`${x},${y}`] || false;
+  }
 }
 
 export const overworldMaps: Record<string, OverworldMapConfig> = {
@@ -52,6 +60,13 @@ export const overworldMaps: Record<string, OverworldMapConfig> = {
         y: utils.withGrid(9),
         src: "/images/characters/people/npc1.png",
       }),
+    },
+    walls: {
+      // "16,16": true,
+      [utils.asGridCoord(7, 6)]: true,
+      [utils.asGridCoord(8, 6)]: true,
+      [utils.asGridCoord(7, 7)]: true,
+      [utils.asGridCoord(8, 7)]: true,
     },
   },
   Kitchen: {
@@ -75,6 +90,7 @@ export const overworldMaps: Record<string, OverworldMapConfig> = {
         src: "/images/characters/people/npc3.png",
       }),
     },
+    walls: {},
   },
 };
 
