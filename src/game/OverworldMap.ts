@@ -39,8 +39,8 @@ export const overworldMaps: Record<string, OverworldMapConfig> = {
         src: "/images/characters/people/hero.png",
       }),
       npc1: new Person({
-        x: utils.withGrid(3),
-        y: utils.withGrid(1),
+        x: utils.withGrid(7),
+        y: utils.withGrid(9),
         src: "/images/characters/people/npc1.png",
       }),
     },

@@ -9,8 +9,8 @@ export class Person extends GameObject {
 
   constructor(config: PersonConfig) {
     super(config);
-    this.isPlayerControlled = config.isPlayerControlled || false;
     this.movingProgressRemaining = 0;
+    this.isPlayerControlled = config.isPlayerControlled || false;
     this.directionUpdate = {
       down: ["y", 1],
       up: ["y", -1],
@@ -21,6 +21,7 @@ export class Person extends GameObject {
 
   update(state) {
     this.updatePosition();
+    this.updateSprite(state);
 
     if (
       this.isPlayerControlled &&
@@ -37,6 +38,23 @@ export class Person extends GameObject {
       const [property, change] = this.directionUpdate[this.direction];
       this[property] += change;
       this.movingProgressRemaining -= 1;
+    }
+  }
+
+  updateSprite(state) {
+    if (
+      this.isPlayerControlled &&
+      this.movingProgressRemaining === 0 &&
+      !state.arrow
+    ) {
+      // console.log("idle", this.direction);
+      this.sprite.setAnimation("idle-" + this.direction);
+      return;
+    }
+
+    if (this.movingProgressRemaining > 0) {
+      // console.log("walking", this.direction);
+      this.sprite.setAnimation("walk-" + this.direction);
     }
   }
 }

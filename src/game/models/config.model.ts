@@ -27,4 +27,5 @@ export interface SpriteConfig {
   animations?: Animations;
   currentAnimation?: keyof Animations;
   gameObject: GameObject;
+  animationFrameLimit?: number;
 }
