@@ -2,7 +2,6 @@ import { DirectionInput } from "./DirectionInput";
 import { GameObject } from "./GameObject";
 import type { OverworldConfig } from "./models/config.model";
 import { OverworldMap, overworldMaps } from "./OverworldMap";
-import { Person } from "./Person";
 
 export class Overworld {
   private element: HTMLElement;

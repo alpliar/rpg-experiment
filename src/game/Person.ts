@@ -1,6 +1,7 @@
 import { GameObject } from "./GameObject";
 import type { PersonConfig } from "./models/config.model";
 import type { Direction } from "./models/direction.model";
+import { OverworldMap } from "./OverworldMap";
 
 export class Person extends GameObject {
   isPlayerControlled: boolean;
@@ -19,7 +20,7 @@ export class Person extends GameObject {
     };
   }
 
-  update(state) {
+  update(state: { arrow: Direction; map: OverworldMap }) {
     if (this.movingProgressRemaining > 0) {
       this.updatePosition();
     } else {
@@ -29,11 +30,14 @@ export class Person extends GameObject {
           direction: state.arrow,
         });
       }
-      this.updateSprite(state);
+      this.updateSprite();
     }
   }
 
-  startBehavior(state, behavior) {
+  startBehavior(
+    state: { arrow: Direction; map: OverworldMap },
+    behavior: { type: any; direction: any }
+  ) {
     this.direction = behavior.direction;
     if (behavior.type === "walk") {
       if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
@@ -46,7 +50,8 @@ export class Person extends GameObject {
 
   updatePosition() {
     const [property, change] = this.directionUpdate[this.direction];
-    this[property] += change;
+    if (property === "x") this.x += change;
+    if (property === "y") this.y += change;
     this.movingProgressRemaining -= 1;
   }
 
