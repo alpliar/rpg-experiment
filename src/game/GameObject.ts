@@ -28,5 +28,6 @@ export class GameObject {
     map.addWall(this.x, this.y);
   }
 
+  // TODO: Fix param types
   update(_state: { arrow: Direction; map?: OverworldMap }) {}
 }

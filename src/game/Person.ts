@@ -34,6 +34,7 @@ export class Person extends GameObject {
     }
   }
 
+  // TODO: Fix params
   startBehavior(
     state: { arrow: Direction; map: OverworldMap },
     behavior: { type: any; direction: any }
