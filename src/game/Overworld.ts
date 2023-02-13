@@ -59,11 +59,56 @@ export class Overworld {
     this.map = new OverworldMap(overworldMaps.DemoRoom);
     this.map.mountObjecst();
 
-    setTimeout(() => {
-      this.startGameLoop();
-    }, 1000);
-
     this.directionInput = new DirectionInput();
     this.directionInput.init();
+
+    this.startGameLoop();
+    this.map.startCutScene([
+      {
+        who: "npcA",
+        type: "walk",
+        direction: "left",
+      },
+      {
+        who: "npcA",
+        type: "stand",
+        direction: "up",
+        time: 800,
+      },
+    ]);
+    this.map.startCutScene([
+      {
+        who: "npcB",
+        type: "walk",
+        direction: "down",
+      },
+      {
+        who: "npcB",
+        type: "walk",
+        direction: "down",
+      },
+      {
+        who: "npcB",
+        type: "walk",
+        direction: "right",
+      },
+      {
+        who: "npcB",
+        type: "stand",
+        direction: "up",
+      },
+    ]);
+    this.map.startCutScene([
+      {
+        who: "hero",
+        type: "walk",
+        direction: "down",
+      },
+      {
+        who: "hero",
+        type: "walk",
+        direction: "down",
+      },
+    ]);
   }
 }

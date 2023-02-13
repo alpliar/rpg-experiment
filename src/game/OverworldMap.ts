@@ -1,7 +1,9 @@
 import { canvas } from "./Constants";
 import type { GameObject } from "./GameObject";
+import { Behavior } from "./models/behavior.model";
 import type { OverworldMapConfig } from "./models/config.model";
 import { Direction } from "./models/direction.model";
+import { OverworldEvent } from "./OverworldEvent";
 import { Person } from "./Person";
 import { utils } from "./Utils";
 
@@ -13,7 +15,7 @@ export class OverworldMap {
   isCutScenePlaying: boolean;
 
   constructor(config: OverworldMapConfig) {
-    this.isCutScenePlaying = false;
+    this.isCutScenePlaying = true;
     this.gameObjects = config.gameObjects;
     this.walls = config.walls || {};
 
@@ -52,6 +54,20 @@ export class OverworldMap {
       //TODO: Determine if object should be mounted
       object.mount(this);
     });
+  }
+
+  async startCutScene(events: Behavior[]) {
+    this.isCutScenePlaying = true;
+
+    for (let i = 0; i < events.length; i++) {
+      const eventHandler = new OverworldEvent({
+        event: events[i],
+        map: this,
+      });
+      await eventHandler.init();
+    }
+
+    this.isCutScenePlaying = false;
   }
 
   addWall(x: number, y: number) {
