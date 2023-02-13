@@ -10,8 +10,10 @@ export class OverworldMap {
   lowerImage: HTMLImageElement;
   upperImage: HTMLImageElement;
   walls: Record<string, boolean>;
+  isCutScenePlaying: boolean;
 
   constructor(config: OverworldMapConfig) {
+    this.isCutScenePlaying = false;
     this.gameObjects = config.gameObjects;
     this.walls = config.walls || {};
 
@@ -44,7 +46,9 @@ export class OverworldMap {
   }
 
   mountObjecst() {
-    Object.values(this.gameObjects).forEach((object) => {
+    Object.keys(this.gameObjects).forEach((key) => {
+      let object = this.gameObjects[key];
+      object.id = key;
       //TODO: Determine if object should be mounted
       object.mount(this);
     });
@@ -76,10 +80,42 @@ export const overworldMaps: Record<string, OverworldMapConfig> = {
         isPlayerControlled: true,
         src: "/images/characters/people/hero.png",
       }),
-      npc1: new Person({
+      npcA: new Person({
         x: utils.withGrid(7),
         y: utils.withGrid(9),
         src: "/images/characters/people/npc1.png",
+        behaviorLoop: [
+          { type: "stand", direction: "left", time: 800 },
+          { type: "stand", direction: "up", time: 800 },
+          { type: "stand", direction: "right", time: 1200 },
+          { type: "stand", direction: "up", time: 300 },
+        ],
+      }),
+      npcB: new Person({
+        x: utils.withGrid(3),
+        y: utils.withGrid(7),
+        src: "/images/characters/people/npc2.png",
+        behaviorLoop: [
+          {
+            type: "walk",
+            direction: "left",
+          },
+          { type: "stand", direction: "left", time: 1500 },
+          {
+            type: "walk",
+            direction: "up",
+          },
+          { type: "stand", direction: "up", time: 1500 },
+          {
+            type: "walk",
+            direction: "right",
+          },
+          { type: "stand", direction: "right", time: 1500 },
+          {
+            type: "walk",
+            direction: "down",
+          },
+        ],
       }),
     },
     walls: {
@@ -100,12 +136,12 @@ export const overworldMaps: Record<string, OverworldMapConfig> = {
         isPlayerControlled: true,
         src: "/images/characters/people/hero.png",
       }),
-      npc1: new Person({
+      npcA: new Person({
         x: utils.withGrid(9),
         y: utils.withGrid(6),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/people/npc1.png",
       }),
-      npc2: new Person({
+      npcC: new Person({
         x: utils.withGrid(6),
         y: utils.withGrid(8),
         src: "/images/characters/people/npc3.png",

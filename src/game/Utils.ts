@@ -33,4 +33,24 @@ export const utils = {
 
     return { x, y };
   },
+
+  emitEvent(name: string, detail: EventDetail) {
+    const event = new CustomEvent(name, {
+      detail,
+    });
+
+    document.dispatchEvent(event);
+  },
 };
+
+export interface EventDetail {
+  whoId: string;
+}
+
+export interface CustomOverworldEvent {
+  detail: EventDetail;
+}
+export interface MyEventMap {
+  PersonWalkingComplete: CustomEvent<{ detail: EventDetail }>;
+  PersonStandComplete: CustomEvent<{ detail: EventDetail }>;
+}

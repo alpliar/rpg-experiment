@@ -1,7 +1,9 @@
 import { GameObject } from "./GameObject";
+import { Behavior } from "./models/behavior.model";
 import type { PersonConfig } from "./models/config.model";
 import type { Direction } from "./models/direction.model";
 import { OverworldMap } from "./OverworldMap";
+import { utils } from "./Utils";
 
 export class Person extends GameObject {
   isPlayerControlled: boolean;
@@ -20,6 +22,7 @@ export class Person extends GameObject {
     };
   }
 
+  //TODO: fix type
   update(state: { arrow: Direction; map: OverworldMap }) {
     if (this.movingProgressRemaining > 0) {
       this.updatePosition();
@@ -34,18 +37,35 @@ export class Person extends GameObject {
     }
   }
 
-  // TODO: Fix params
+  //TODO: Fix type
   startBehavior(
     state: { arrow: Direction; map: OverworldMap },
-    behavior: { type: any; direction: any }
+    behavior: Behavior
   ) {
     this.direction = behavior.direction;
     if (behavior.type === "walk") {
+      // stop here if space is not free
       if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
+        if (behavior.retry) {
+          setTimeout(() => {
+            this.startBehavior(state, behavior);
+          }, 10);
+        }
         return;
       }
+
+      // Ready to walk
       state.map.moveWall(this.x, this.y, this.direction);
       this.movingProgressRemaining = 16;
+      this.updateSprite();
+    }
+
+    if (behavior.type === "stand") {
+      setTimeout(() => {
+        utils.emitEvent("PersonStandComplete", {
+          whoId: this.id,
+        });
+      }, behavior.time!);
     }
   }
 
@@ -54,6 +74,13 @@ export class Person extends GameObject {
     if (property === "x") this.x += change;
     if (property === "y") this.y += change;
     this.movingProgressRemaining -= 1;
+
+    if (this.movingProgressRemaining === 0) {
+      // walk finished
+      utils.emitEvent("PersonWalkingComplete", {
+        whoId: this.id,
+      });
+    }
   }
 
   updateSprite() {

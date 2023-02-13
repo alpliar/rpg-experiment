@@ -1,5 +1,6 @@
 import type { GameObject } from "../GameObject";
 import type { Animations } from "./animation.model";
+import { Behavior } from "./behavior.model";
 import type { Direction } from "./direction.model";
 
 export interface OverworldConfig {
@@ -17,6 +18,7 @@ export interface GameObjectConfig {
   y?: number;
   direction?: Direction;
   src: string;
+  behaviorLoop?: Behavior[];
 }
 
 export interface PersonConfig extends GameObjectConfig {
