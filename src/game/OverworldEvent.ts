@@ -1,7 +1,7 @@
+import { PersonEventDetail } from "./models/customEvents.model";
 import { BehaviorEvent } from "./models/event.model";
-import { OverworldMap } from "./OverworldMap";
+imyarn devport { OverworldMap } from "./OverworldMap";
 import { Person } from "./Person";
-import { EventDetail } from "./Utils";
 
 interface OverworldEventProps {
   map: OverworldMap;
@@ -32,13 +32,16 @@ export class OverworldEvent {
     );
 
     //TODO: Do not infer params
-    const completeHandler = (e) => {
+    const completeHandler = (e: CustomEvent<PersonEventDetail>) => {
       if (e.detail.whoId === this.event.who) {
-        document.removeEventListener("PersonStandComplete", completeHandler);
+        document.removeEventListener(
+          "PersonStandComplete",
+          () => completeHandler
+        );
         resolve(true);
       }
     };
-    document.addEventListener("PersonStandComplete", completeHandler);
+    document.addEventListener("PersonStandComplete", () => completeHandler);
   }
 
   walk(resolve: (value: unknown) => void) {
@@ -56,13 +59,19 @@ export class OverworldEvent {
     );
 
     //TODO: Do not infer params
-    const completeHandler = (e) => {
+    const completeHandler = (e: CustomEvent): void => {
       if (e.detail.whoId === this.event.who) {
-        document.removeEventListener("PersonWalkingComplete", completeHandler);
+        document.removeEventListener(
+          "PersonWalkingComplete",
+          () => completeHandler
+        );
         resolve(true);
       }
     };
-    document.addEventListener("PersonWalkingComplete", completeHandler);
+    document.addEventListener(
+      "PersonWalkingComplete",
+      completeHandler as (e: Event) => void
+    );
   }
 
   init() {
