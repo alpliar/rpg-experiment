@@ -68,6 +68,10 @@ export class OverworldMap {
     }
 
     this.isCutScenePlaying = false;
+
+    Object.values(this.gameObjects).forEach((object) =>
+      object.doBehaviorEvent(this)
+    );
   }
 
   addWall(x: number, y: number) {
