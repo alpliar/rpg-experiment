@@ -1,6 +1,6 @@
 import { PersonEventDetail } from "./models/customEvents.model";
 import { BehaviorEvent } from "./models/event.model";
-imyarn devport { OverworldMap } from "./OverworldMap";
+import { OverworldMap } from "./OverworldMap";
 import { Person } from "./Person";
 
 interface OverworldEventProps {
